@@ -15,6 +15,12 @@ if [ "$VIM_COMMAND" = "nvim" ]; then
   VIM_COLORS_DIRECTORY=$HOME/.config/nvim/local-plugins/color-schemes/colors
 fi
 
+LVIM_RC_DIR=$HOME/.config/lvim
+# LVIM_RC_DIR_LSP=$HOME/.config/lvim/lsp-settings
+LVIM_CONFIG=config.lua
+
+
+
 function wrap_execute {
   echo "$@"
   "$@"
@@ -53,6 +59,12 @@ function configure_vim {
   create_directory $VIM_COLORS_DIR
   backup_and_symlink $PWD/vim_configs/$VIM_COLOR_FILE $VIM_COLORS_DIR/$VIM_COLOR_FILE
 }
+
+function configure_lvim {
+  create_directory $LVIM_RC_DIR
+  backup_and_symlink $PWD/lvim_configs/$LVIM_CONFIG $LVIM_RC_DIR/$LVIM_CONFIG
+}
+
 
 function install_vim_plugins {
   make_backup $VIM_PLUGIN_FILE
