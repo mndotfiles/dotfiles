@@ -6,13 +6,45 @@
 --
 -- install plugins
 lvim.plugins = {
+  {
+  "folke/tokyonight.nvim",
+  "dracula/vim",
   "ChristianChiarulli/swenv.nvim",
   "stevearc/dressing.nvim",
   "mfussenegger/nvim-dap-python",
   "nvim-neotest/neotest",
-  "nvim-neotest/neotest-python",
+  "nvim-neotest/neotest-python"},
+{
+  "echasnovski/mini.map",
+  branch = "stable",
+  config = function()
+    require('mini.map').setup()
+    local map = require('mini.map')
+    map.setup({
+      integrations = {
+        map.gen_integration.builtin_search(),
+        map.gen_integration.diagnostic({
+          error = 'DiagnosticFloatingError',
+          warn  = 'DiagnosticFloatingWarn',
+          info  = 'DiagnosticFloatingInfo',
+          hint  = 'DiagnosticFloatingHint',
+        }),
+      },
+      symbols = {
+        encode = map.gen_encode_symbols.dot('4x2'),
+      },
+      window = {
+        side = 'right',
+        width = 20, -- set to 1 for a pure scrollbar :)
+        winblend = 15,
+        show_integration_count = false,
+      },
+    })
+  end
+}
 }
 
+lvim.colorscheme = "tokyonight-night"
 -- automatically install python syntax highlighting
 lvim.builtin.treesitter.ensure_installed = {
   "python",
@@ -67,6 +99,7 @@ lvim.builtin.which_key.mappings["C"] = {
   name = "Python",
   c = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
 }
+
 
 local get_python_path = function()
   local venv_path = os.getenv('VIRTUAL_ENV')

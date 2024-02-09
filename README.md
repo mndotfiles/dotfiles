@@ -1,9 +1,9 @@
-##my::dotfiles
+## dotfiles
 
-In the constant quest to make every machine in your image you'll need *nix config files. This repo contains all of the "must have" features in a really easy to install package.
+In the constant quest to make every machine in your image you'll need *nix* config files. This repo contains all of the "must have" features in a really easy to install package.
 
 ## Install
-Simply run script/setup from within the repository. Install happens according
+Simply run `script/setup` from within the repository. Install happens according
 to `~/` paths. We'll try to keep what's there, but chance are whatever bad
 decisions you made prior to installing these dotfiles will be forever gone.
 #yolo
@@ -50,4 +50,3 @@ This uses [tmuxline.vim](https://github.com/edkolev/tmuxline.vim). Tmuxline can 
 ## Uninstall
 
 Simply run `rake uninstall` from within the repository. This should also be helpful if installation fails halfway though.
-

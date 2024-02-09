@@ -27,3 +27,7 @@ safepathappend $HOME/.rvm/bin
 
 ## Common Applications
 safepathappend /usr/local/heroku/bin
+. "$HOME/.cargo/env"
+
+# for LunarVim
+export PATH=$HOME/.local/bin:$PATH
