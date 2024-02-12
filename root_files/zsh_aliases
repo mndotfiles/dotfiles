@@ -94,6 +94,7 @@ ressh() {
   ssh-add -l 2>/dev/null
 }
 
+
 alias v="$HOME/.local/bin/lvim"
 alias gg="git g"
 alias k="kubectl"
