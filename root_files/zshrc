@@ -69,5 +69,4 @@ safesource $HOME/.rvm/scripts/rvm
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 eval "$(direnv hook zsh)"
