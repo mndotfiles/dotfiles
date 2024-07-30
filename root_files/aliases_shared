@@ -91,9 +91,10 @@ alias pod-get="kubectl get pods | grep "
 alias pr-open="gh pr view --web"
 
 function pod-shell() {
-  pod_id=$1
+  env=$1
+  pod_id=$2
 
-  kubectl exec -it $pod_id -- ./docker-entrypoint.sh bash
+  kubectl exec -n $env -it $pod_id -- ./docker-entrypoint.sh bash
 }
 
 function nextapp() {

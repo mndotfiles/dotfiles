@@ -12,6 +12,7 @@ lvim.plugins = {
   "ChristianChiarulli/swenv.nvim",
   "stevearc/dressing.nvim",
   "mfussenegger/nvim-dap-python",
+  "rcarriga/nvim-dap-ui",
   "nvim-neotest/neotest",
   "nvim-neotest/neotest-python"},
 {
