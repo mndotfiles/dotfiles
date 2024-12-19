@@ -94,7 +94,8 @@ ressh() {
   ssh-add -l 2>/dev/null
 }
 
-
+###### MY ALIASES #######
 alias v="$HOME/.local/bin/lvim"
 alias gg="git g"
 alias k="kubectl"
+alias venv="python3 -m venv .venv | source .venv/bin/activate"
