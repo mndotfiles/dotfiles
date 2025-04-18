@@ -14,8 +14,9 @@ lvim.plugins = {
   "aserowy/tmux.nvim",
   -- Legacy
   "preservim/vimux",
-  "janko/vim-test"
+  "janko/vim-test",
 }
+
 
 lvim.builtin.dap.active = true
 local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
@@ -38,7 +39,13 @@ lvim.builtin.which_key.mappings["df"] = { "<cmd>lua require('neotest').run.run({
 lvim.builtin.which_key.mappings["dF"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Test Class DAP" }
 lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
 
-lvim.builtin.which_key.mappings["vp"] = { ":VimuxPromptCommand<cr>", "Run vimux" }
-lvim.builtin.which_key.mappings["rl"] = { ":VimuxRunLastCommand<cr>", "Run vimux" }
-lvim.builtin.which_key.mappings["rb"] = { ":TestFile<cr>", "Run vimux" }
-lvim.builtin.which_key.mappings["rf"] = { ":TestNearest<cr>", "Run vimux" }
+lvim.builtin.which_key.mappings["v"] = {
+  name = "Vimux",
+  p = { ":VimuxPromptCommand<cr>", "Run Vimux Command"},
+}
+lvim.builtin.which_key.mappings["r"] = {
+  name = "Vimux Test",
+  l = { ":VimuxRunLastCommand<cr>", "Run last command" },
+  b = { ":TestFile<cr>", "Run test buffer" },
+  f = { ":TestNearest<cr>", "Run nearest test" },
+}
