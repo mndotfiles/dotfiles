@@ -53,11 +53,9 @@ safesource "$HOME/.zshrc.local"
 ## Aliases tend to be long and complicated so they exist elsewhere!
 safesource "$HOME/.aliases_shared"
 safesource "$HOME/.zsh_aliases"
-safesource "$HOME/.spoton_aliases"
 ## (LOCAL)
 safesource $HOME/.aliases_shared.local
 safesource $HOME/.zsh_aliases.local
-safesource $HOME/.spoton_aliases.local
 
 # Script Directory (CORE)
 safepathprepend $HOME/.bin
@@ -70,6 +68,3 @@ safepathprepend $HOME/.bin.local
 safesource $HOME/.rvm/scripts/rvm
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519
-eval "$(direnv hook zsh)"
