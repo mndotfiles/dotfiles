@@ -155,8 +155,14 @@ let g:ale_linters = {
   " \   'python': ['ruff','flake8', 'pylint', 'mypy'],
 let g:ale_pattern_options = {'so/merchant-dashboard-backend': {'fixers': []}}
 let g:ale_python_auto_pipenv = 1
+let g:ale_python_auto_poetry = 1
+let g:ale_python_ruff_use_global = 1
+let g:ale_python_ruff_format_use_global = 1
 let g:ale_fix_on_save = 1
 command! ALEToggleFixer execute "let g:ale_fix_on_save = get(g:, 'ale_fix_on_save', 0) ? 0 : 1"
+nnoremap :Tfix :ALEToggleFixer<CR>
+highlight ALEWarning guibg=Yellow
+highlight ALEError guibg=Red
 nmap <silent> <leader>an :ALENext<cr>
 nmap <silent> <leader>ap :ALEPrevious<cr>
 
