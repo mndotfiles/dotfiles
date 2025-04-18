@@ -9,8 +9,12 @@ lvim.plugins = {
   "williamboman/mason.nvim",
   "mfussenegger/nvim-dap-python",
   "nvim-neotest/neotest",
+  "nvim-neotest/nvim-nio",
   "nvim-neotest/neotest-python",
-  "aserowy/tmux.nvim"
+  "aserowy/tmux.nvim",
+  -- Legacy
+  "preservim/vimux",
+  "janko/vim-test"
 }
 
 lvim.builtin.dap.active = true
@@ -19,6 +23,22 @@ pcall(function()
  require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
 end)
 
+vim.opt.mouse = ""
+
+vim.g["test#strategy"] = "vimux"
 
 lvim.format_on_save.enabled = true
 lvim.format_on_save.pattern = { "*" }
+
+lvim.builtin.dap.active = true
+
+lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>", "Test Method" }
+lvim.builtin.which_key.mappings["dM"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Test Method DAP" }
+lvim.builtin.which_key.mappings["df"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
+lvim.builtin.which_key.mappings["dF"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Test Class DAP" }
+lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
+
+lvim.builtin.which_key.mappings["vp"] = { ":VimuxPromptCommand<cr>", "Run vimux" }
+lvim.builtin.which_key.mappings["rl"] = { ":VimuxRunLastCommand<cr>", "Run vimux" }
+lvim.builtin.which_key.mappings["rb"] = { ":TestFile<cr>", "Run vimux" }
+lvim.builtin.which_key.mappings["rf"] = { ":TestNearest<cr>", "Run vimux" }
