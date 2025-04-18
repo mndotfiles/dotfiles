@@ -149,3 +149,7 @@ alias p=previousapp
 function dports() {
   docker ps --format "{{.Names | printf \"%-60s\" }}{{.Ports}}" | sed "s/`basename $PWD`_//g"
 }
+
+
+alias v=$EDITOR
+alias vi=$EDITOR
