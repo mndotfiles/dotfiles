@@ -53,9 +53,11 @@ safesource "$HOME/.zshrc.local"
 ## Aliases tend to be long and complicated so they exist elsewhere!
 safesource "$HOME/.aliases_shared"
 safesource "$HOME/.zsh_aliases"
+safesource "$HOME/.spoton_aliases"
 ## (LOCAL)
 safesource $HOME/.aliases_shared.local
 safesource $HOME/.zsh_aliases.local
+safesource $HOME/.spoton_aliases.local
 
 # Script Directory (CORE)
 safepathprepend $HOME/.bin

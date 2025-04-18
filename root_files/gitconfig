@@ -54,3 +54,6 @@
 	defaultBranch = main
 [rebase]
 	autosquash = true
+[user]
+	name = Marija Ferber
+	email = marija.ferber@spoton.com
