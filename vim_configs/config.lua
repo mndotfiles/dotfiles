@@ -12,6 +12,7 @@ lvim.plugins = {
   "nvim-neotest/nvim-nio",
   "nvim-neotest/neotest-python",
   "aserowy/tmux.nvim",
+  "github/copilot.vim",
   -- Legacy
   "preservim/vimux",
   "janko/vim-test",
