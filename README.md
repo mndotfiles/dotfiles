@@ -3,9 +3,11 @@
 In the constant quest to make every machine in your image you'll need *nix config files. This repo contains all of the "must have" features in a really easy to install package.
 
 ## Install
-Simply run script/setup from within the repository. Install happens according
-to `~/` paths. We'll try to keep what's there, but chance are whatever bad
-decisions you made prior to installing these dotfiles will be forever gone.
+Simply run script/setup <editor> (nvim or vim) from within the repository.
+Install happens according to `~/` paths. We'll try to keep what's there, but
+chance are whatever bad decisions you made prior to installing these dotfiles
+will be forever gone.
+
 #yolo
 
 Note: You want to make sure the repository exists in a stable and convenient place. Once installed, the repository cannot be moved or deleted without causing serious instability. Be sure to run a clean uninstall before deleting or moving the configuration.
@@ -50,4 +52,3 @@ This uses [tmuxline.vim](https://github.com/edkolev/tmuxline.vim). Tmuxline can 
 ## Uninstall
 
 Simply run `rake uninstall` from within the repository. This should also be helpful if installation fails halfway though.
-

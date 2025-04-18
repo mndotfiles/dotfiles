@@ -1,19 +1,39 @@
 #!/bin/bash
 
-VIM_COMMAND=vim
-VIM_CONFIG=vimrc
-VIM_PLUGIN_FILE=$HOME/.vim/autoload/plug.vim
-VIM_PLUGIN_DIR=$HOME/.vim/bundle
-VIM_COLORS_DIR=$HOME/.vim/colors
-VIM_RC_DIRECTORY=$HOME/.vim
+EDITOR=$1
 
-if [ "$VIM_COMMAND" = "nvim" ]; then
-  VIM_CONFIG=init.vim
-  VIM_RC_DIRECTORY=$HOME/.config/nvim
-  VIM_PLUGIN_FILE=$HOME/.config/nvim/autoload/plug.vim
-  VIM_PLUGIN_DIRECTORY=$HOME/.config/nvim/plugged
-  VIM_COLORS_DIRECTORY=$HOME/.config/nvim/local-plugins/color-schemes/colors
+if [ -z "$EDITOR" ]; then
+  read -p "Please specify your editor (nvim or vim): " EDITOR
+  if [ -z "$EDITOR" ]; then
+    echo "No editor specified. Exiting."
+    exit 1
+  fi
 fi
+
+case "$EDITOR" in
+  nvim)
+    VIM_CONFIG=init.vim
+    VIM_RC_DIRECTORY=$HOME/.config/nvim
+    VIM_PLUGIN_FILE=$HOME/.config/nvim/autoload/plug.vim
+    VIM_PLUGIN_DIRECTORY=$HOME/.config/nvim/plugged
+    VIM_COLORS_DIRECTORY=$HOME/.config/nvim/local-plugins/color-schemes/colors
+    ;;
+  vim)
+    VIM_COMMAND=vim
+    VIM_CONFIG=vimrc
+    VIM_PLUGIN_FILE=$HOME/.vim/autoload/plug.vim
+    VIM_PLUGIN_DIR=$HOME/.vim/bundle
+    VIM_COLORS_DIR=$HOME/.vim/colors
+    VIM_RC_DIRECTORY=$HOME/.vim
+    ;;
+  *)
+    echo "Usage: $0 [nvim|vim]"
+    exit 1
+    ;;
+esac
+
+echo "EDITOR=$EDITOR" >> "$HOME/.zshrc.local"
+
 
 function wrap_execute {
   echo "$@"
