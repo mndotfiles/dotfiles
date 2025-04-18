@@ -27,7 +27,7 @@ end)
 vim.opt.mouse = ""
 
 vim.g["test#strategy"] = "vimux"
-
+vim.g["test#python#runner"] = "pytest"
 lvim.format_on_save.enabled = true
 lvim.format_on_save.pattern = { "*" }
 
