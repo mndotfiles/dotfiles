@@ -3,7 +3,7 @@
 EDITOR=$1
 
 if [ -z "$EDITOR" ]; then
-  read -p "Please specify your editor (nvim or vim): " EDITOR
+  read -p "Please specify your editor (nvim or lvim or vim): " EDITOR
   if [ -z "$EDITOR" ]; then
     echo "No editor specified. Exiting."
     exit 1
@@ -11,6 +11,13 @@ if [ -z "$EDITOR" ]; then
 fi
 
 case "$EDITOR" in
+  lvim)
+    VIM_CONFIG=config.lua
+    VIM_RC_DIRECTORY=$HOME/.config/lvim
+    VIM_PLUGIN_FILE=$HOME/.config/lvim/autoload/plug.vim
+    VIM_PLUGIN_DIRECTORY=$HOME/.config/lvim/plugged
+    VIM_COLORS_DIRECTORY=$HOME/.config/lvim/local-plugins/color-schemes/colors
+    ;;
   nvim)
     VIM_CONFIG=init.vim
     VIM_RC_DIRECTORY=$HOME/.config/nvim
@@ -69,9 +76,13 @@ function configure_vim {
   backup_and_symlink $PWD/vim_configs/$VIM_CONFIG $VIM_RC_DIRECTORY/$VIM_CONFIG
   backup_and_symlink $PWD/vim_configs/python_mappings.vim $VIM_RC_DIRECTORY/python_mappings.vim
 
-  VIM_COLOR_FILE=Tomorrow-Night.vim
-  create_directory $VIM_COLORS_DIR
-  backup_and_symlink $PWD/vim_configs/$VIM_COLOR_FILE $VIM_COLORS_DIR/$VIM_COLOR_FILE
+  if [ "$EDITOR" == "vim" ]; then
+    VIM_COLOR_FILE=Tomorrow-Night.vim
+    create_directory $VIM_COLORS_DIR
+    backup_and_symlink $PWD/vim_configs/$VIM_COLOR_FILE $VIM_COLORS_DIR/$VIM_COLOR_FILE
+  fi
+  echo "Please be sure to install a Nerd Font to your system if not already present: https://www.nerdfonts.com/font-downloads"
+  echo "You must also set it to be your terminal font."
 }
 
 function install_vim_plugins {
@@ -88,7 +99,9 @@ function install_vim_plugins {
     wrap_execute git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   fi
 
-  wrap_execute $VIM_COMMAND +PluginInstall +qall
+  if [ "$EDITOR" == "vim" ]; then
+    wrap_execute $VIM_COMMAND +PluginInstall +qall
+  fi
 }
 
 
