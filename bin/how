@@ -1,4 +1,11 @@
+#!/bin/bash
+
 how_file=~/.how_do_i
+
+## if file does not exist, create it
+if [ ! -f $how_file ]; then
+  touch $how_file
+fi
 
 if [[ "$1" == "-e" ]]; then
   $EDITOR $how_file
