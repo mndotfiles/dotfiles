@@ -136,3 +136,4 @@ safepathprepend $HOME/.bin.local
 safesource $HOME/.rvm/scripts/rvm
 
 safesource $HOME/.fzf.bash
+. "$HOME/.cargo/env"

@@ -17,6 +17,8 @@ lvim.plugins = {
   -- Legacy
   "preservim/vimux",
   "janko/vim-test",
+  -- LLM
+  -- "ggml-org/llama.vim",
 }
 
 lvim.colorscheme = "tokyonight-night"
@@ -33,12 +35,27 @@ pcall(function()
 end)
 
 vim.g["test#strategy"] = "vimux"
+-- add `pyright` to `skipped_servers` list
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jedi_language_server, pyright" })
+-- remove `jedi_language_server` from `skipped_servers` list
+-- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+--   return server ~= "jedi_language_server"
+-- end, lvim.lsp.automatic_configuration.skipped_servers)
 
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup { { name = "ruff" }, }
-lvim.format_on_save.enabled = false
-lvim.format_on_save.pattern = { "*.py" }
+formatters.setup { 
+  { name = "ruff" },
+  {name = "prettier"},
+}
+lvim.format_on_save.enabled = true
+-- lvim.format_on_save.pattern = { "*.py" }
+
+-- local formatters = require "lvim.lsp.null-ls.formatters"
+-- formatters.setup { { name = "prettier" }, }
+-- lvim.format_on_save.enabled = true
+lvim.format_on_save.pattern = { "*.py", "*.tsx", "*.js", "*.jsx", "*.ts" }
+lvim.format_on_save.timeout = 5000
 
 -- setup linting
 local linters = require "lvim.lsp.null-ls.linters"

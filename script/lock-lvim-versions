@@ -1,0 +1,42 @@
+#!/bin/bash
+
+function wrap_execute {
+  echo "$@"
+  "$@"
+}
+
+function make_backup {
+  # If file exists
+  if [ -a $1 ] && [ -d $1.bak ]; then
+    echo "ERROR: Cannot backup $1 to $1.bak as latter exists as directory"
+  elif [ -a $1 ]; then
+    echo "Backing up $1 to $1.bak"
+    mv $1 $1.bak
+  fi
+}
+
+function backup_and_symlink {
+  source_filepath=$1
+  destination_filepath=$2
+  # If file exists and is not a symlink
+  [ -a $destination_filepath ] && [ ! -h $destination_filepath ] && make_backup $destination_filepath
+  wrap_execute ln -fs $source_filepath $destination_filepath
+}
+function hi {
+  echo "HI"
+}
+
+if [ -n "$1" ]; then
+  if ["$1" = "--help" | "$1" = "-h"]; then
+    echo " ===== Usage ====="
+    echo ""
+    echo "For pinning Lunarvim core plugin dependencies for Neovim v10.4 and LunarVim 1.3."
+    echo ""
+    echo "1. Run this script"
+    echo "2. Re-open Lunarvim and run :LvimSyncCorePlugins"
+  fi
+else
+  hi
+fi
+
+# backup_and_symlink $PWD/lvim_configs/default.json $HOME/.local/share/lunarvim/lvim/snapshots/default.json

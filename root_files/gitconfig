@@ -56,4 +56,9 @@
 	autosquash = true
 [user]
 	name = Marija Ferber
-	email = marija.ferber@spoton.com
+	email = 153559300+marija-so@users.noreply.github.com
+	signingkey = /Users/marija/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true

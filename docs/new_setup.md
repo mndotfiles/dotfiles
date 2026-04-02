@@ -2,13 +2,12 @@
 
 ### Applications
 
-- Spotify
 - Docker
 - Gather
 - Skitch
 - Rectangle (use Spectacle settings)
-- Chrome
-- Firefox
+- Chrome > log in to use YouTube Music App
+- Firefox / Waterfox
     - Extensions
         - Bitwarden
         - uBlock Origin
@@ -39,7 +38,12 @@
 - `brew install go`
 - [Lunarvim](https://www.lunarvim.org/docs/installation)
     - Install Nerd Font of choice for lunarvim (Bitstrom Wera is my current choice)
+    - If `find_file` in Telescope is still not working (leader+f), [pin Telescope to a more recent version.](https://github.com/LunarVim/LunarVim/issues/4642#issuecomment-2713774881)
 - Run this repo `script/setup`
 - keyboard settings: CAPSLOCK -> CTRL mapping
 - `brew install kubernetes-cli`
 - `brew install kubectx`
+- `brew install postgresql`
+- Package Managers
+    - UV: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+    - Poetry: `brew install poetry`
