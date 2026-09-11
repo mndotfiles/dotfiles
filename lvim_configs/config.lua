@@ -1,5 +1,4 @@
 -- Read the docs: https://www.lunarvim.org/docs/configuration
---
 -- Video Tutorials: https://www.youtube.com/watch?v=sFA9kX-Ud_c&list=PLhoH5vyxr6QqGu0i7tt_XoVK9v-KvZ3m6
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
@@ -12,13 +11,85 @@ lvim.plugins = {
   "nvim-neotest/neotest",
   "nvim-neotest/nvim-nio",
   "nvim-neotest/neotest-python"},
-  -- "ChristianChiarulli/swenv.nvim",
   "aserowy/tmux.nvim",
   -- Legacy
   "preservim/vimux",
   "janko/vim-test",
-  -- LLM
-  -- "ggml-org/llama.vim",
+  -- AI
+    "nvim-lua/plenary.nvim", -- Required for git operations
+  {
+  "greggh/claude-code.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim", -- Required for git operations
+  },
+  config = function()
+
+require("claude-code").setup({
+  -- Terminal window settings
+  window = {
+    split_ratio = 0.3,      -- Percentage of screen for the terminal window (height for horizontal, width for vertical splits)
+    position = "botright",  -- Position of the window: "botright", "topleft", "vertical", "float", etc.
+    enter_insert = true,    -- Whether to enter insert mode when opening Claude Code
+    hide_numbers = true,    -- Hide line numbers in the terminal window
+    hide_signcolumn = true, -- Hide the sign column in the terminal window
+
+    -- Floating window configuration (only applies when position = "float")
+    float = {
+      width = "80%",        -- Width: number of columns or percentage string
+      height = "80%",       -- Height: number of rows or percentage string
+      row = "center",       -- Row position: number, "center", or percentage string
+      col = "center",       -- Column position: number, "center", or percentage string
+      relative = "editor",  -- Relative to: "editor" or "cursor"
+      border = "rounded",   -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
+    },
+  },
+  -- File refresh settings
+  refresh = {
+    enable = true,           -- Enable file change detection
+    updatetime = 100,        -- updatetime when Claude Code is active (milliseconds)
+    timer_interval = 1000,   -- How often to check for file changes (milliseconds)
+    show_notifications = true, -- Show notification when files are reloaded
+  },
+  -- Git project settings
+  git = {
+    use_git_root = true,     -- Set CWD to git root when opening Claude Code (if in git project)
+  },
+  -- Shell-specific settings
+  shell = {
+    separator = '&&',        -- Command separator used in shell commands
+    pushd_cmd = 'pushd',     -- Command to push directory onto stack (e.g., 'pushd' for bash/zsh, 'enter' for nushell)
+    popd_cmd = 'popd',       -- Command to pop directory from stack (e.g., 'popd' for bash/zsh, 'exit' for nushell)
+  },
+  -- Command settings
+  command = "claude",        -- Command used to launch Claude Code
+  -- Command variants
+  command_variants = {
+    -- Conversation management
+    continue = "--continue", -- Resume the most recent conversation
+    resume = "--resume",     -- Display an interactive conversation picker
+
+    -- Output options
+    verbose = "--verbose",   -- Enable verbose logging with full turn-by-turn output
+  },
+  -- Keymaps
+  keymaps = {
+    toggle = {
+      normal = "<C-,>",       -- Normal mode keymap for toggling Claude Code, false to disable
+      terminal = "<C-,>",     -- Terminal mode keymap for toggling Claude Code, false to disable
+      variants = {
+        continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
+        verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag
+      },
+    },
+    use_which_key = false,
+    window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
+    scrolling = true,         -- Enable scrolling keymaps (<C-f/b>) for page up/down
+  }
+})
+
+  end
+
+}
 }
 
 lvim.colorscheme = "tokyonight-night"
@@ -49,17 +120,12 @@ formatters.setup {
   {name = "prettier"},
 }
 lvim.format_on_save.enabled = true
--- lvim.format_on_save.pattern = { "*.py" }
-
--- local formatters = require "lvim.lsp.null-ls.formatters"
--- formatters.setup { { name = "prettier" }, }
--- lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.py", "*.tsx", "*.js", "*.jsx", "*.ts" }
-lvim.format_on_save.timeout = 5000
+lvim.format_on_save.pattern = { "*.tsx", "*.js", "*.jsx", "*.ts" }
+lvim.format_on_save.timeout = 5
 
 -- setup linting
 local linters = require "lvim.lsp.null-ls.linters"
-linters.setup { { command = "flake8", args = { "--ignore=E203,F812,H101,H202,H233,H301,H306,H401,H403,H404,H405,H501 --max-complexity=18 --select=B,C,E,F,W,T4,B9" }, filetypes = { "python" } } }
+linters.setup { { name = "ruff" } }
 
 
 -- setup testing
@@ -150,6 +216,13 @@ dap.adapters.python = function(cb, config)
     })
   end
 end
+
+-- gitsigns: reduce git diff frequency on large repos
+lvim.builtin.gitsigns.opts.update_debounce = 3000
+lvim.builtin.gitsigns.opts.watch_gitdir = {
+  enable = false,
+  follow_files = true,
+}
 
 vim.opt.wrap = true
 vim.opt.linebreak = true
